@@ -49,7 +49,7 @@ func TestRomanNumerals(t *testing.T) {
 		description := fmt.Sprintf("%d is converted to %s", test.Arabic, test.Roman)
 		t.Run(description, func(t *testing.T) {
 			want := test.Roman
-			got := ConvertToRoman(test.Arabic)
+			got, _ := ConvertToRoman(test.Arabic)
 
 			if got != want {
 				t.Errorf("got %q, want %q", got, want)
@@ -80,7 +80,7 @@ func TestPropertiesOfConversion(t *testing.T) {
 			return true
 		}
 
-		roman := ConvertToRoman(arabic)
+		roman, _ := ConvertToRoman(arabic)
 		fromRoman := ConvertToArabic(roman)
 		return fromRoman == arabic
 	}
@@ -97,7 +97,7 @@ func TestPropertyOfRepetition(t *testing.T) {
 		if arabic > 3999 {
 			return true
 		}
-		roman := ConvertToRoman(arabic)
+		roman, _ := ConvertToRoman(arabic)
 		for _, symbol := range romanCharacters {
 			repeatedChars := strings.Repeat(string([]byte{symbol}), 4)
 			if res := strings.Contains(roman, repeatedChars); res {
