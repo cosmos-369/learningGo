@@ -1,7 +1,7 @@
 package main
 
 import (
-	clockface "main/Maths"
+	clockface "main/maths"
 	"os"
 	"time"
 )
