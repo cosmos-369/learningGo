@@ -23,7 +23,7 @@ func TestArea(t *testing.T) {
 		shape Shape
 		want  float64
 	}{
-		{name: "Rectangle", shape: Rectangle{length: 10, breadth: 20}, want: 20},
+		{name: "Rectangle", shape: Rectangle{length: 10, breadth: 20}, want: 200},
 		{name: "Circle", shape: Circle{radius: 10}, want: 314.1592653589793},
 		{name: "Triangle", shape: Triangle{base: 10, height: 5}, want: 25},
 	}

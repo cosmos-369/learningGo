@@ -3,7 +3,7 @@ package clockface_test
 import (
 	"bytes"
 	"encoding/xml"
-	clockface "main/Maths"
+	clockface "main/maths"
 	"testing"
 	"time"
 )
