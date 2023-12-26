@@ -14,5 +14,4 @@ func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 
 func (i *InMemoryPlayerStore) RecordWin(name string) {
 	i.store[name]++
-
 }
