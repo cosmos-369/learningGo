@@ -25,7 +25,7 @@ func (s *StubPlayerScores) RecordWin(name string) {
 	s.winCalls = append(s.winCalls, name)
 }
 
-func (s *StubPlayerScores) GetLeague() []Player {
+func (s *StubPlayerScores) GetLeague() League {
 	return s.league
 }
 func TestGETPlayers(t *testing.T) {
@@ -147,12 +147,7 @@ func TestLeague(t *testing.T) {
 
 func getLeagueFromResponse(t testing.TB, body io.Reader) (league []Player) {
 	t.Helper()
-	err := json.NewDecoder(body).Decode(&league)
-
-	if err != nil {
-		t.Fatalf("unable to parse responce from server %q into slice of Player, %v", body, err)
-	}
-
+	league, _ = NewLeague(body)
 	return
 }
 

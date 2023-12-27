@@ -7,7 +7,12 @@ import (
 )
 
 func TestRecordWinsAndRetrievingThem(t *testing.T) {
-	store := NewInMemoryPlayerStore()
+	database, cleanDataBase := createTempFile(t, `[]`)
+	defer cleanDataBase()
+
+	store, err := NewFileSystemPlayerStore(database)
+	assertNoErr(t, err)
+
 	server := NewPlayerServer(store)
 	player := "Pepper"
 
@@ -36,4 +41,11 @@ func TestRecordWinsAndRetrievingThem(t *testing.T) {
 		assertLeague(t, got, want)
 	})
 
+}
+
+func assertNoErr(t testing.TB, err error) {
+	t.Helper()
+	if err != nil {
+		t.Fatalf("didn't expect an error but got one, %v", err)
+	}
 }
