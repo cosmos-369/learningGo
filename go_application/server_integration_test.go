@@ -1,4 +1,4 @@
-package main
+package poker
 
 import (
 	"net/http"
@@ -11,7 +11,7 @@ func TestRecordWinsAndRetrievingThem(t *testing.T) {
 	defer cleanDataBase()
 
 	store, err := NewFileSystemPlayerStore(database)
-	assertNoErr(t, err)
+	AssertNoErr(t, err)
 
 	server := NewPlayerServer(store)
 	player := "Pepper"
@@ -23,29 +23,22 @@ func TestRecordWinsAndRetrievingThem(t *testing.T) {
 	t.Run("get score", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, newGetScoreRequest(player))
-		assertStatus(t, response.Code, http.StatusOK)
-		assertResponceBody(t, response.Body.String(), "3")
+		AssertStatus(t, response.Code, http.StatusOK)
+		AssertResponceBody(t, response.Body.String(), "3")
 	})
 
 	t.Run("get League", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, getNewLeagueRequest())
 
-		assertStatus(t, response.Code, http.StatusOK)
+		AssertStatus(t, response.Code, http.StatusOK)
 
 		got := getLeagueFromResponse(t, response.Body)
 		want := []Player{
 			{"Pepper", 3},
 		}
 
-		assertLeague(t, got, want)
+		AssertLeague(t, got, want)
 	})
 
-}
-
-func assertNoErr(t testing.TB, err error) {
-	t.Helper()
-	if err != nil {
-		t.Fatalf("didn't expect an error but got one, %v", err)
-	}
 }
