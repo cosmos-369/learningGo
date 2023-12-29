@@ -10,7 +10,7 @@ import (
 )
 
 func TestGETPlayers(t *testing.T) {
-	store := StubPlayerScores{
+	store := StubPlayerStore{
 		map[string]int{
 			"Pepper": 20,
 			"Floyd":  10,
@@ -55,7 +55,7 @@ func TestGETPlayers(t *testing.T) {
 
 func TestScoreWins(t *testing.T) {
 
-	store := StubPlayerScores{
+	store := StubPlayerStore{
 		map[string]int{},
 		[]string{},
 		nil,
@@ -76,7 +76,7 @@ func TestScoreWins(t *testing.T) {
 }
 
 func TestLeague(t *testing.T) {
-	store := StubPlayerScores{}
+	store := StubPlayerStore{}
 	server := NewPlayerServer(&store)
 
 	t.Run("it returns 200 on /league", func(t *testing.T) {
@@ -103,7 +103,7 @@ func TestLeague(t *testing.T) {
 			{"Tiest", 14},
 		}
 
-		store := StubPlayerScores{nil, nil, wantedLeague}
+		store := StubPlayerStore{nil, nil, wantedLeague}
 		server := NewPlayerServer(&store)
 
 		request := getNewLeagueRequest()

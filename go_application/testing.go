@@ -6,22 +6,22 @@ import (
 	"testing"
 )
 
-type StubPlayerScores struct {
+type StubPlayerStore struct {
 	score    map[string]int
 	winCalls []string
 	league   League
 }
 
-func (s *StubPlayerScores) GetPlayerScore(name string) int {
+func (s *StubPlayerStore) GetPlayerScore(name string) int {
 	score := s.score[name]
 	return score
 }
 
-func (s *StubPlayerScores) RecordWin(name string) {
+func (s *StubPlayerStore) RecordWin(name string) {
 	s.winCalls = append(s.winCalls, name)
 }
 
-func (s *StubPlayerScores) GetLeague() League {
+func (s *StubPlayerStore) GetLeague() League {
 	return s.league
 }
 
@@ -32,7 +32,7 @@ func AssertPlayerScore(t testing.TB, got, want int) {
 	}
 }
 
-func AssertPlayerWin(t testing.TB, store *StubPlayerScores, winner string) {
+func AssertPlayerWin(t testing.TB, store *StubPlayerStore, winner string) {
 	t.Helper()
 
 	if len(store.winCalls) != 1 {
