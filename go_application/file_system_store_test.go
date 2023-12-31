@@ -7,7 +7,7 @@ import (
 
 func TestFileSystemStore(t *testing.T) {
 	t.Run("league from reader", func(t *testing.T) {
-		database, cleanDataBase := createTempFile(t, `[
+		database, cleanDataBase := CreateTempFile(t, `[
 			{"Name":"Cleo", "Wins":10},
 			{"Name":"Chris", "Wins":33}]`)
 		defer cleanDataBase()
@@ -25,7 +25,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 
 	t.Run("get player score", func(t *testing.T) {
-		database, cleanDataBase := createTempFile(t, `[
+		database, cleanDataBase := CreateTempFile(t, `[
 			{"Name":"Cleo", "Wins":10},
 			{"Name":"Chris", "Wins":33}]`)
 		defer cleanDataBase()
@@ -39,7 +39,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 
 	t.Run("store win of an existing player", func(t *testing.T) {
-		database, cleanDataBase := createTempFile(t, `[
+		database, cleanDataBase := CreateTempFile(t, `[
 			{"Name":"Cleo", "Wins":10},
 			{"Name":"Chris", "Wins":33}]`)
 		defer cleanDataBase()
@@ -55,7 +55,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 
 	t.Run("stores wins of a new player", func(t *testing.T) {
-		database, cleanDataBase := createTempFile(t, `[
+		database, cleanDataBase := CreateTempFile(t, `[
 			{"Name":"Cleo", "Wins":10},
 			{"Name":"Chris", "Wins":33}]`)
 		defer cleanDataBase()
@@ -71,7 +71,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 
 	t.Run("runs with an empty file", func(t *testing.T) {
-		database, cleanDataBase := createTempFile(t, ``)
+		database, cleanDataBase := CreateTempFile(t, ``)
 		defer cleanDataBase()
 
 		_, err := NewFileSystemPlayerStore(database)
@@ -80,7 +80,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 
 	t.Run("league sorted", func(t *testing.T) {
-		database, cleanDatabase := createTempFile(t, `[
+		database, cleanDatabase := CreateTempFile(t, `[
 			{"Name": "Cleo", "Wins": 10},
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
@@ -103,7 +103,7 @@ func TestFileSystemStore(t *testing.T) {
 	})
 }
 
-func createTempFile(t testing.TB, initialData string) (*os.File, func()) {
+func CreateTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	t.Helper()
 
 	tempfile, err := os.CreateTemp("", "db")

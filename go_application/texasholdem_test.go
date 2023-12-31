@@ -3,15 +3,16 @@ package poker_test
 import (
 	"fmt"
 	poker "go_application"
+	"io"
 	"testing"
 	"time"
 )
 
-func TestGame(t *testing.T) {
+func TestTexasHoldem(t *testing.T) {
 	t.Run("schedules alerts on game start for 5 players", func(t *testing.T) {
 		blindAlerter := &SpyBlindAlerter{}
 		game := poker.NewTexasHoldem(blindAlerter, dummyPlayerStore)
-		game.Start(5)
+		game.Start(5, io.Discard)
 
 		cases := []ScheduledAlert{
 			{0 * time.Minute, 100},
@@ -33,7 +34,7 @@ func TestGame(t *testing.T) {
 	t.Run("schedules alerts on game start for 7 players", func(t *testing.T) {
 		blindAlerter := &SpyBlindAlerter{}
 		game := poker.NewTexasHoldem(blindAlerter, dummyPlayerStore)
-		game.Start(7)
+		game.Start(7, io.Discard)
 
 		cases := []ScheduledAlert{
 			{0 * time.Minute, 100},
